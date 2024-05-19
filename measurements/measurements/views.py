@@ -15,6 +15,11 @@ def check_variable(data):
         if data["variable"] == variable["id"]:
             return True
     return False
+def check_place(place_name):
+    places_service_url = 'http://<IP-PLACES-SERVICE>:8080/places/list/'  
+    response = requests.get(places_service_url)
+    places = response.json().get('places', [])
+    return any(place['name'] == place_name for place in places)
 
 def MeasurementList(request):
     queryset = Measurement.objects.all()
